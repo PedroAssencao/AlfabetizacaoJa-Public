@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutNavbar.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Título da Página</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 3vh auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 3vh;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .inputs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 150vh;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body class="FundoBase">
+    <section class="area-login">
+        <h1>Editar História</h1>
+
+
+        <form method="post" asp-action="Update" enctype="multipart/form-data">
+            <div class="inputs">
+
+
+
+                <div class="form-group" style="display:none;">
+                    <label for="descricao">Id da Historia</label>
+                    <input type="text" class="form-control" id="QUAID" name="hist_id" value="@ViewBag.HistoriaAtualizar?.hist_id" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Titulo</label>
+                    <input type="text" class="form-control" id="QUAID" name="hist_Titulo" value="@ViewBag.HistoriaAtualizar?.hist_Titulo">
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Autor</label>
+                    <input type="text" class="form-control" id="QUAVALOR" name="hist_Autor" value="@ViewBag.HistoriaAtualizar?.hist_Autor">
+
+                </div>
+         
+
+            
+            </div>
+            <div class="d-flex justify-content-center align-content-center align-items-center">
+                <div class="form-group">
+                    <label for="descricao">Texto</label>
+                    <textarea type="text" class="form-control" style="width:50vw; height:15vh;" id="QUATIPO" name="Hist_trecho">@ViewBag.HistoriaAtualizar?.Hist_trecho</textarea>
+                </div>
+            </div>
+            <div style="display: flex; align-items:center; justify-content:center; flex-direction: column; margin: 2vh auto; gap: 20px;">
+                <label for="descricao">Alterar Imagem</label>
+                <div class="inputss" style="margin: auto;">
+                    <div class="input-group" style="align-self: flex-start;">
+                        <input type="file" name="novaImagem" value="/@ViewBag.HistoriaAtualizar?.hist_img" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*">
+                    </div>
+                </div>
+                <img src="/@ViewBag.HistoriaAtualizar?.hist_img" style="max-height: 400px; max-width: auto;" onerror="this.src='/img/default_book_cover_2015.jpg';">
+            </div>
+         
+
+            <div class="buttons">
+                <a href="/Historia" class="btn btn-secondary">Voltar</a>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+            </div>
+
+        </form>
+
+
+    </section>
+    <script>
+        document.body.style.background = 'white'
+    </script>
+</body>
+</html>

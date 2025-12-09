@@ -1,0 +1,8 @@
+select * from Historia
+
+INSERT Historia (hist_Autor,hist_Titulo,Hist_trecho,hist_img) values ('Teresa Lopes','Histórias Que Acabam Aqui','Brotara do solo fecundo de um quintal enorme, de uma semente que mestre Crisolindo comprara na venda. ','img/Historia/Historia-25.jpg')
+INSERT Historia (hist_Autor,hist_Titulo,Hist_trecho,hist_img) values ('Dante Alighieri','Divina Comédia','Da nossa vida, em meio da jornada, Achei-me numa selva tenebrosa, Tendo perdido a verdadeira estrada.','img/Historia/Historia-24.jpg')
+INSERT Historia (hist_Autor,hist_Titulo,Hist_trecho,hist_img) values ('Tarcisio Lage','O Leão Praxedes','Na imensa planície africana existia um leão com dentes enormes e afiados. Chamava-se Praxedes. ','img/Historia/Historia-23.jpg')
+INSERT Historia (hist_Autor,hist_Titulo,Hist_trecho,hist_img) values ('José Cláudio Da Silva','Pai Posso Dar Um Soco Nele?','Tudo começou numa quarta-feira quente de janeiro. Era mês de colocar as leituras em dia.Esquecer o mundo lá fora e se embrenhar durante trinta dias no mundo imaginário dos livros!','img/Historia/Historia-22.jpg')
+INSERT Historia (hist_Autor,hist_Titulo,Hist_trecho,hist_img) values ('Lenira Almeida Heck','O Galo Tião & A Vaca Malhada','O Galo Tião, invicto campeão das rinhas de galo, deixou para trás a cidade Amanhecer Dourado por causa do seu dono e treinador, Sr. Zalim.','img/Historia/Historia-21.jpg')
+INSERT Historia (hist_Autor,hist_Titulo,Hist_trecho,hist_img) values ('José Leon Machado','A Bruxa &  O Caldeirão','Quando preparava uma sopa com uns olhinhos de couve para o jantar, a bruxa constatou que o caldeirão estava furado. ','img/Historia/Historia-20.jpg')

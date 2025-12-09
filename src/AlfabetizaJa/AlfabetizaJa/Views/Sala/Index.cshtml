@@ -1,0 +1,106 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutNavbar.cshtml";
+}
+<html>
+<style>
+    .inputs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 10px;
+        max-width: 150vh;
+        margin: 3vh auto;
+        text-align: center;
+    }
+
+</style>
+
+<body style="background-color:#f8efed">
+
+<div class="container">
+    <h1 style="text-align: center; margin-top: 3vh;font-family: 'Poppins', sans-serif;color:#002060;">Criar Sala</h1>
+    <div class="inputs">
+
+
+        <div class="form-group">
+                <label for="descricao" style="font-family: 'Poppins', sans-serif;color:#002060;">Titulo</label>
+            <input type="text" class="form-control" id="QUAID" readonly name="hist_Titulo" value="@ViewBag.HistoriaAtualizar?.hist_Titulo">
+        </div>
+
+        <div class="form-group">
+                <label for="descricao" style="font-family: 'Poppins', sans-serif;color:#002060;">Autor</label>
+            <input type="text" class="form-control" id="QUAVALOR" readonly name="hist_Autor" value="@ViewBag.HistoriaAtualizar?.hist_Autor">
+
+        </div>
+
+
+    </div>
+
+    <div id="infos" style="display: none;">
+        @ViewBag.LoginAtualizar?.log_numeroW
+    </div>
+    @*  <div style="display: flex; align-items:center; justify-content:center; flex-direction: column; margin: 2vh auto; gap: 20px;">
+    <label for="descricao">Capa</label>
+
+    <img src="/@ViewBag.HistoriaAtualizar?.hist_img" style="max-height: 400px; max-width: auto;">
+    </div>
+    *@
+
+    <div class="form-group">
+        <div class="input-group" style="height: 20vh; max-width: 50vw; margin: auto;">
+                <span class="input-group-text" style="font-family: 'Poppins', sans-serif;color:white;background-color: #FFA500;">História</span>
+            <textarea class="form-control" id="texto" aria-label="With textarea">@ViewBag.HistoriaAtualizar?.Hist_trecho</textarea>
+        </div>
+    </div>
+
+
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 5vh; gap:20px;">
+        <a href="/Home" class="btn btn" style="font-family: 'Poppins', sans-serif;background-color:#DAA520;color:white">Voltar</a>
+        <button id="comecar" onclick='infos()' class="btn btn" style="font-family: 'Poppins', sans-serif;background-color: #FFA500; color:white">Começar!</button>
+    </div>
+
+
+
+</div>
+</body>
+
+<script>
+
+    function infos(){
+
+        var titulo = encodeURIComponent(document.getElementById('QUAID').value);
+        var autor = encodeURIComponent(document.getElementById('QUAVALOR').value);
+        var texto = encodeURIComponent(document.getElementById('texto').value);
+        var infos = encodeURIComponent(document.getElementById('infos').innerHTML);
+        var teste = encodeURIComponent(@User.Identity.Name);
+        var id = '@ViewBag.HistoriaAtualizar?.hist_id';
+        var url = `${window.location.origin}/Leitura/Index/${id}?titulo=${titulo}&autor=${autor}&texto=${texto}&numero=${infos}&login=${teste}`;
+        localStorage.setItem("url", url);
+        localStorage.setItem("id", teste);
+        $.ajax({
+            url: '/Sala/ajax',
+            method: 'POST',
+            data: {
+                id: teste,
+                url: url,
+                sala: true
+            },
+            success: function (result) {
+                console.log(result);
+                window.location.href = '/Professor';
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    
+        //var btn = document.getElementById('comecar')
+        //btn.setAttribute('href', `${url}`)
+    }       
+</script>
+</html>

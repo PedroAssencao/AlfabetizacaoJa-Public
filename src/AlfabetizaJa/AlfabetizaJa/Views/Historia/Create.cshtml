@@ -1,0 +1,119 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutNavbar.cshtml";
+}
+<style>
+
+    h1 {
+        text-align: center;
+        margin-top: 3vh;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 4vh;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .inputs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 150vh;
+        margin: 0 auto;
+    }
+
+    .inputss {
+        max-width: 73vw;
+        margin: auto auto auto 13vw;
+    }
+
+    .input-group {
+        flex-basis: 45%;
+    }
+
+    .images {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 4vh auto;
+        gap: 5px;
+    }
+
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .checker {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        gap: 20px;
+    }
+
+    .voltar {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 100px;
+    }
+
+</style>
+
+<h1>
+    Inserir Historia
+</h1>
+
+
+<form method="post" action="/Historia/CriarHistoria" enctype="multipart/form-data">
+
+    <div class="inputs">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Autor</span>
+            <input type="text" name="Autor" class="form-control" aria-label="Sizing example input" required aria-describedby="inputGroup-sizing-default" style="width: 135vh; height:60px;" maxlength="300">
+        </div>
+
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="inputGroup-sizing-default">Titulo</span>
+            <input class="form-control" name="Titulo" required aria-label="With textarea" style="width: 135vh; height:60px;" maxlength="500">
+        </div>
+
+        <div class="input-group mb-2">
+            <span class="input-group-text" id="inputGroup-sizing-default">Texto</span>
+            <textarea class="form-control" name="Texto" required aria-label="With textarea" style="width: 135vh; height:100px;"></textarea>
+        </div>
+
+
+    </div>
+
+
+
+    <h2 style="margin-top: 5vh;">Adicionar Imagens</h2>
+    <div class="inputss" style="margin: auto;">
+        <div class="input-group" style="align-self: flex-start;">
+            <input type="file" name="novaImagem" class="form-control" required id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*">
+        </div>
+    </div>
+
+    <div class="buttons" style="margin-top: 20px;">
+        <a class="btn btn-dark btn-sm" type="button" href="/historia">Voltar</a>
+        <button type="submit" href="/Historia/CriarHistoria" class="btn btn-dark btn-sm">Salvar</button>
+    </div>
+
+</form>
+
+<script>
+    document.body.style.background = 'white'
+</script>
+

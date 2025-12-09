@@ -1,0 +1,126 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutNavbar.cshtml";
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body{
+            background: #f8efed;
+        }
+
+       
+    </style>
+</head>
+
+<div class="container" style="font-family: 'Poppins', sans-serif;">
+    <h1 class="text text-center m-5" style="color:#002060;">
+            Sala Criada!
+      </h1>
+    <label class="text" style="color:#002060;">Link da Sala</label>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Link da Sala" id="salalink" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-dark" type="button" onclick="copiarTexto()" id="button-addon2" style="background-color:#002060;color:white">Copiar</button>
+    </div>
+
+    <table class="table">
+        <thead>
+
+            <tr class="table-primary">
+                <th scope="col">Posição</th>
+                <th scope="col">Nome do Aluno</th>
+                <th scope="col">Nota do Aluno</th>
+
+            </tr>
+        </thead>
+        <tbody class="bg-primary table-primary">
+            @{
+                var alunos = ((List<Alunos>)ViewBag.ListaAlunos);
+                alunos = alunos.OrderByDescending(x => double.Parse(x.nota.Replace(".", ","))).ToList();
+                dynamic rankings = alunos.Select((aluno, indice) => new 
+                {
+                    Colocacao = indice + 1,
+                    Nome = aluno.nome_aluno,
+                    Nota = aluno.nota
+                });
+            }
+            @foreach (var ranking in rankings)
+            {
+
+                
+                <tr class="table-primary" id="teste">
+                    <td>@ranking.Colocacao</td>
+                    <td>@ranking.Nome</td>
+                    <th scope="row">@ranking.Nota</th>
+
+                </tr>
+
+            }
+        
+       
+         
+        </tbody>
+    </table>
+
+    <div>
+        <button type="button" onclick="enviar(this)" class="btn btn-danger">Fechar Sala</button>
+        <a type="button" onclick="this.setAttribute('disabled', 'disabled')" href="/Professor/index" class="btn btn" style="background-color:#FFA500;color:white">Atualizar Tabela</a>
+    </div>
+  </div>
+
+
+<script>
+
+
+
+    var aValue = '@ViewBag.sala?.sala_url'.replace(/amp;/g, '');
+
+    console.log(aValue)
+ 
+    document.getElementById('salalink').value = aValue
+ 
+    var id = @User.Identity.Name
+    console.log(id)
+    function enviar(element){
+        element.setAttribute("disabled", "disabled");
+
+        var aValue2 = localStorage.getItem('id');
+        $.ajax({
+            url: '/Sala/update',
+            method: 'POST',
+            data: {
+                id: id
+            },
+            success: function (result) {
+                window.location.href = '/Home';
+                console.log(result)
+            },
+            error: function (error) {
+                window.location.href = '/Home';
+            }
+        });
+    
+    }
+
+</script>
+
+<script>
+    function copiarTexto() {
+        
+        var inputElement = document.getElementById("salalink");
+        
+        inputElement.select();
+        
+        document.execCommand("copy");
+        
+        inputElement.setSelectionRange(0, 0);
+
+        alert("Texto copiado para a área de transferência");
+
+    }
+</script>

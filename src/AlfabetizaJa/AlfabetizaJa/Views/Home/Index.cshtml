@@ -1,0 +1,250 @@
+﻿@{
+
+}
+
+@using AlfabetizaJa.DAL
+@using AlfabetizaJa.Models
+
+<head>
+    <style>
+        body {
+            background: #dddddd;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #Historia {
+            margin: 2vh;
+        }
+
+        .col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn{
+
+        }
+        .btn:hover {
+                -webkit-box-shadow: 1px 1px 13px #E7E7E7, -1px -1px 13px #E7E7E7;
+                box-shadow: 1px 1px 13px #E7E7E7, -1px -1px 13px #E7E7E7;
+            color: #d6d6d6;
+            -webkit-transition: 500ms;
+            transition: 500ms;
+        }
+
+        .card{
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+    </style>
+    <style>
+        .card-description {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-height: 60px; /* Define a altura máxima para a exibição recolhida */
+        }
+
+            .card-description.expanded {
+                max-height: none; /* Remove a altura máxima para a exibição expandida */
+                white-space: normal;
+            }
+
+    </style>
+
+
+</head>
+<section id="Historia">
+
+
+
+    <div class="row row-cols-md-2 g-4" style="text-align: center; display: flex; justify-content:space-around">
+        @foreach (var item in ViewBag.ListaHistoria)
+        {
+            <!-- Button trigger modal -->
+        
+
+            <!-- Modal -->
+            <div class="modal fade" id="telefone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color:#f8efed">
+                          <div id="header1" style="display: block;">
+                            <div class="modal-header" style="justify-content:center;">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel1" style="color:#002060;">Deseja Inserir um número?</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel2" style="color:#002060; display:none;">Link da Sua Historia</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="modalReverse()" aria-label="Close"></button>
+                            </div>
+                        </div>   
+                        <div id="header2" style="display: none;">
+                            <div class="modal-header" style="justify-content:center;">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color:#002060;">Insira seu Número ("Ex: 79988123144"):</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="modalReverse()" aria-label="Close"></button>
+                            </div>
+                        </div>
+            
+
+
+                        <div id="oinput" style="display: none;">
+                            <div class="modal-body">
+                                <input id="inputNumeroZapZap" style="width:20rem">
+                            </div>
+                        </div>
+                   
+                        <div id="buttons1">
+                            <div class="modal-footer" style="justify-content:center;">
+                                <button type="button" class="btn btn-secondary" id="Leitura/index/@item.hist_id" style="background-color:#002060;" onclick="enviarMensagemWhatsApp(this)" value="nulll">Não</button>
+                            <button type="button" class="btn btn-primary" id="Leitura/index/@item.hist_id" onclick="modal()" style="background-color:#FFA500;border:none;">Sim</button>
+                        </div>
+                        </div>
+                        <div id="buttons2" style="display:none;">
+                            <div class="modal-footer" style="justify-content:center;">
+                                <button type="button" class="btn btn-primary" id="Leitura/index/@item.hist_id" onclick="enviarMensagemWhatsApp(this)" style="background-color:#FFA500;border:none;">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="card mb-3 mt-5 col-" style="width: auto;height: auto; max-width:25rem;border:none;-webkit-box-shadow: -2px 3px 41px -13px rgba(115,113,115,1);-moz-box-shadow: -2px 3px 41px -13px rgba(115,113,115,1);box-shadow: -2px 3px 41px -13px rgba(115,113,115,1);" id="@item.hist_id">
+                <div class="container">
+                    @if (!string.IsNullOrWhiteSpace(item.hist_img))
+                    {
+                        <img class="card-img-top" src="@item.hist_img" alt="Imagem" style="margin-top:20px; margin-left:5px; width:20rem; height:250px; border-radius:3px" onerror="this.src='/img/default_book_cover_2015.jpg';">
+                    }
+                    else
+                    {
+                       
+                        <img class="card-img-top" src="/img/default_book_cover_2015.jpg" alt="Imagem Padrão" style="margin-top:20px; margin-left:5px; width:20rem; height:250px; border-radius:3px">
+                    }
+
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" style="color:#002060;">@item.hist_Titulo</h5>
+                    <p class="card-text card-description">
+                        <small class="text-body-secondary">Autor: @item.hist_Autor</small>
+                    </p>
+                    <p class="card-text card-description">
+                        @item.Hist_trecho
+                    </p>
+                    <a href="#collapse-@item.hist_id" data-toggle="collapse" class="btn btn-link read-more-btn">Ler mais</a>
+                    <div style="display:flex; align-items:center; justify-content:center; margin: 2vh auto; gap:20px;">
+                        @if (User.IsInRole("Login"))
+                        {
+                            SalaDAO sala = new SalaDAO();
+                            HistoriaDAO Historia = new HistoriaDAO();
+                            var logins = User.Identity.Name;
+                            int salaAberta = sala.SalaAberta(Convert.ToInt32(logins));
+
+                            if (salaAberta == 0)
+                            {
+                               <a href="/Sala/index/?id=@item.hist_id&id2=@User.Identity.Name" class="btn btn" style="background-color:#FFA500; color:white;">Criar sala</a>
+
+                            }
+                            else if (salaAberta == 1)
+                            {
+                                <a href="/Sala/index/?id=@item.hist_id&id2=@User.Identity.Name" class="btn btn" style="background-color:#FFA500; color:white;">Entrar na sala</a>
+                            }
+
+                        }
+                        else
+                        {
+                            <a href="/Login/index" class="btn" style="background-color:#E19341;color:#E7E7E7">Criar sala</a>
+                        }
+                        <button id="Leitura/index/@item.hist_id" onclick="teste(this)" class="btn" data-bs-toggle="modal" data-bs-target="#telefone" style="background-color:#FFA500; color:white">Enviar Historia</button>
+                    </div>
+                    
+
+                </div>
+            </div>
+
+        }
+    </div>
+
+</section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    function teste(element) {
+
+        localStorage.setItem('link', element.id)
+
+    }
+
+    function modal() {
+        document.getElementById('buttons1').style.display = 'none'
+        document.getElementById('header1').style.display = 'none'
+        document.getElementById('buttons2').style.display = 'block'
+        document.getElementById('header2').style.display = 'block'
+        document.getElementById('oinput').style.display = 'block'
+        document.getElementById('oinput').style.display = 'block'
+        document.getElementById('inputNumeroZapZap').value = ''
+        document.getElementById('exampleModalLabel1').style.display = 'block'
+        document.getElementById('exampleModalLabel2').style.display = 'none'
+        }
+
+    function modalReverse() {
+        document.getElementById('buttons1').style.display = 'block'
+        document.getElementById('header1').style.display = 'block'
+        document.getElementById('buttons2').style.display = 'none'
+        document.getElementById('header2').style.display = 'none'
+        document.getElementById('oinput').style.display = 'none'
+        document.getElementById('inputNumeroZapZap').value = ''
+        document.getElementById('exampleModalLabel1').style.display = 'block'
+        document.getElementById('exampleModalLabel2').style.display = 'none'
+        }
+
+    function enviarMensagemWhatsApp(element) {
+
+        var numero = $("#inputNumeroZapZap").val();
+
+        var link = (window.location.origin + "/" + localStorage.getItem('link'))
+
+        if (element.value == 'nulll')
+        {
+            numero = "null"
+            var mensagemm = `${link}?numero=+55${numero}&passe=1`
+            document.getElementById('inputNumeroZapZap').value = mensagemm
+            document.getElementById('oinput').style.display = 'block'
+            document.getElementById('exampleModalLabel1').style.display = 'none'
+            document.getElementById('exampleModalLabel2').style.display = 'block'
+            document.getElementById('buttons1').style.display = 'none'
+            return
+        }else
+        if (numero == '' || numero == null) {
+            alert('insira um número')
+            return
+        }
+
+
+
+        var mensagem = `Aqui Esta o Link da Sua Historia: "${link}?numero=+55${numero}&passe=1"`
+
+        var url = "https://api.whatsapp.com/send?phone=" + `+55${numero}` + "&text=" + encodeURIComponent(mensagem);
+        window.open(url, "_blank");
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".read-more-btn").click(function () {
+            var description = $(this).closest('.card').find('.card-description');
+            description.toggleClass('expanded');
+            if (description.hasClass('expanded')) {
+                $(this).text('Ler menos');
+            } else {
+                $(this).text('Ler mais');
+            }
+        });
+    });
+</script>
+
+
+
+

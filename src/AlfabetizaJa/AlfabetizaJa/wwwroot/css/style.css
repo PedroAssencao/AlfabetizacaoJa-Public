@@ -1,0 +1,23 @@
+﻿body {
+    background: gray;
+    
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: white;
+    margin: 10vh auto;
+    width: 30vw;
+    height: 34vw;
+    border-radius: 10px;
+}
+
+@media (max-width: 1156px) {
+    .container {
+        width: 90vw;
+        height: 130vw;
+    }
+}

@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<style>
+    #body {
+        background: #f8efed;
+    }
+    #Login {
+        display:flex;
+        justify-content:center;
+        align-items:center; 
+        margin: 10vh auto;
+        width: 90%;
+        height: 70%;
+        background:White;
+        border-radius: 10px;
+    }
+
+
+</style>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AlfabetizaJá</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body id="body">
+   
+    <section id="Login" style="width:40%;border: 3px solid #002060;">
+        <div class="login">
+            <h1 class="text-center m-3" style="font-family: 'Poppins', sans-serif; color:#002060;">
+                CADASTRE-SE
+            </h1>
+            <form action="/Login/Create" method="post">
+                <div class="inputs">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default" style="font-family: 'Poppins', sans-serif; color:#002060;">User</span>
+                        <input type="text" class="form-control" name="User" aria-label="Sizing example input" required aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default" style="font-family: 'Poppins', sans-serif; color:#002060;">Email</span>
+                        <input type="email" class="form-control" name="email" aria-label="Sizing example input" required aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default" style="font-family: 'Poppins', sans-serif; color:#002060;">Senha</span>
+                        <input type="text" class="form-control" name="senha" aria-label="Sizing example input" required  aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default"style="font-family: 'Poppins', sans-serif; color:#002060;">Numero Whatsapp</span>
+                        <input type="text" class="form-control" name="NumeroWhatsapp" aria-label="Sizing example input" required aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:center">
+                        <button type="submit" href="/Login/Create" class="btn btn" style="background-color:#FFA500; color:white;border:none;font-family: 'Poppins', sans-serif;">Criar Conta</button>
+                    </div>
+                   
+                </div>
+            </form>
+            <div style="display:flex;align-items:center;justify-content:center">
+                <label>Já tem uma Conta?<a href="/Login/index">Entrar</a></label>
+             </div>
+           
+        </div>
+    </section>
+
+</body>
+  
+

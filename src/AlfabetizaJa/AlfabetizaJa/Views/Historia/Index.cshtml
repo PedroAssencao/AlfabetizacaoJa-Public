@@ -1,0 +1,61 @@
+﻿﻿﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutNavbar.cshtml";
+}
+
+<div id="divtitulo">
+    <h1 style="text-align: center;">Lista de Historias</h1>
+</div>
+<div id="divtabela">
+    <div class="table-responsive">
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">trecho</th>
+                    <th scope="col">Imagem</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @{
+                        var a = 0;
+                    }
+                    @foreach (var item in ViewBag.ListaHistoria)
+                    {
+                        a++;
+                    <tr>
+                        <td>@item.hist_id</td>
+                        <td>@item.hist_Autor</td>
+                        <td>@item.hist_Titulo</td>
+                        <td>@item.Hist_trecho</td>
+                        <td>
+                            <img class="card-img-top" src="@item.hist_img" alt="Imagem" style="min-width: 100px; min-height:100px; max-width: 100px; max-height: 100px;" onerror="teste(this)">
+                            <script>
+                                function teste(element) {
+                                    element.src = '/img/default_book_cover_2015.jpg'
+                                    document.getElementById('Apagar_@a').setAttribute('href', "/Historia/Apagar/@item.hist_id/?imagem='/img/default_book_cover_2015.jpg'")
+                                }
+                            </script>
+                        </td>
+                        <td><a href="/Historia/Update/@item.hist_id" class="btn btn-outline-dark ">Editar</a></td>
+                        <td><a id="Apagar_@a" href="/Historia/Apagar/@item.hist_id/?imagem=@item.hist_img" class="btn btn-outline-danger">Excluir</a></td>
+
+                    </tr>
+                    }
+
+            </tbody>
+
+        </table>
+    </div>
+    <a href="/Home" class="btn btn-dark">Voltar</a>
+    <a href="/Historia/Create" class="btn btn-dark">Adicionar Historia</a>
+</div>
+
